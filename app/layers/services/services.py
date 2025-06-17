@@ -32,38 +32,29 @@ def getAllImages():
 
 
 
-# función que filtra según el nombre del pokemon.
 def filterByCharacter(name):
-    # guarda la lista entera de pokemones en all_cards
-    all_cards = getAllImages()
-    
-    # armamos una lista vacía para ser llenada con los pokemons
+    # Define una función que acepta un parámetro 'name' para filtrar tarjetas según su nombre.
     filtered_cards = []
-
-    # message con un string vacío, se asignará 'No se encuentra el pokemon' si no se encuentran resultados
-    message = ''
-
-    # si no se ingresa un nombre, devuelve todas las cartas
+    # Crea una lista vacía para almacenar las tarjetas que coincidan con el criterio de búsqueda.
+    name = name.strip().lower()
+    # Normaliza el parámetro 'name' convirtiéndolo a minúsculas y eliminando espacios.
     if len(name) == 0:
-        return all_cards, message
+        # Si el parámetro 'name' está vacío, retorna una lista vacía.
+        return filtered_cards
     
-    # recorremos la variable all_cards
-    for current_card in all_cards:
-        # si hay un nombre y está en la carta, se encontró un resultado
-        if len(name) > 0 and name.lower() in current_card.name.lower():
-            # agregamos la carta a filtered_cards
-            filtered_cards.append(current_card)
-
-    # si el resultado es 0 es porque no se encontraron resultados
-    if len(filtered_cards) == 0:
-        # cambiamos el mensaje a "No se encuentra el pokemon"
-        message = "No se encuentra el pokemon"
-    # devolvemos las cartas y el mensaje, que será 'No se encuentra el pokemon' si no hay resultados
-    return filtered_cards, message
+    cards = list(getAllImages())
+    # Convierte el resultado de 'getAllImages()' en una lista de objetos Card.
+    for i in range(len(cards)):
+        # Itera sobre los índices de la lista de tarjetas para acceder a cada objeto Card.
+        card = cards[i]
+        # Obtiene el objeto Card en el índice actual.
+        if card.name and card.name.lower().find(name) >= 0:
+            # Comprueba si el atributo 'name' existe y si el parámetro 'name' es una subcadena, ignorando mayúsculas y minúsculas.
+            filtered_cards.append(card)
+            # Añade la tarjeta a la lista 'filtered_cards' si satisface la condición de búsqueda.
     
-    
-
-
+    return filtered_cards
+    # Devuelve la lista 'filtered_cards' con todas las tarjetas cuyo atributo 'name' contiene el parámetro 'name'.
 
 # función que filtra las cards según su tipo.
 def filterByType(type_filter):
