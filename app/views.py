@@ -3,6 +3,7 @@
 from django.shortcuts import redirect, render
 from app.layers.services.services import getAllImages
 from app.layers.services.services import filterByCharacter
+from app.layers.services.services import filterByType
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
@@ -39,7 +40,7 @@ def filter_by_type(request):
     type = request.POST.get('type', '')
 
     if type != '':
-        images = [] # debe traer un listado filtrado de imágenes, segun si es o contiene ese tipo.
+        images = filterByType(type)
         favourite_list = []
 
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
