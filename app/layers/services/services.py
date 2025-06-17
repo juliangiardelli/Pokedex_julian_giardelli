@@ -37,7 +37,7 @@ def filterByCharacter(name):
     filtered_cards = []
     # Crea una lista vacía para almacenar las tarjetas que coincidan con el criterio de búsqueda.
     name = name.strip().lower()
-    # Normaliza el parámetro 'name' convirtiéndolo a minúsculas y eliminando espacios.
+    # Normaliza el parámetro 'name' convirtiéndolo a minúsculas y eliminando espacios, para evitar.
     if len(name) == 0:
         # Si el parámetro 'name' está vacío, retorna una lista vacía.
         return filtered_cards
@@ -58,15 +58,20 @@ def filterByCharacter(name):
 
 # función que filtra las cards según su tipo.
 def filterByType(type_filter):
+    # Define una función que acepta un parámetro 'type_filter' para filtrar tarjetas según su tipo.
     filtered_cards = []
-
-    for card in getAllImages():
-        # debe verificar si la casa de la card coincide con la recibida por parámetro. Si es así, se añade al listado de filtered_cards.
-        filtered_cards.append(card)
-
+    # Normaliza el parámetro 'type_filter' convirtiéndolo a minúsculas y eliminando espacios.
+    type_filter = type_filter.lower().strip()
+    # Si la longitud del parámetro 'type_filter' es cero, retorna una lista vacía.
+    if len(type_filter) > 0:
+        for card in getAllImages():
+            # Verifica si el atributo 'type' de la tarjeta existe y si 'type_filter' está contenido en él.
+            if card.types and any(type_filter in str(item).lower() for item in card.types):
+                # Añade la tarjeta a la lista 'filtered_cards' si el tipo coincide.
+                filtered_cards.append(card)
+    
     return filtered_cards
-
-# añadir favoritos (usado desde el template 'home.html')
+    # Devuelve la lista 'filtered_cards' con todas las tarjetas cuyo atributo 'type' contiene el parámetro 'type_filter'.
 def saveFavourite(request):
     fav = '' # transformamos un request en una Card (ver translator.py)
     fav.user = get_user(request) # le asignamos el usuario correspondiente.
