@@ -35,24 +35,13 @@ def getAllImages():
 def filterByCharacter(name):
     # Define una función que acepta un parámetro 'name' para filtrar tarjetas según su nombre.
     filtered_cards = []
-    # Crea una lista vacía para almacenar las tarjetas que coincidan con el criterio de búsqueda.
-    name = name.strip().lower()
-    # Normaliza el parámetro 'name' convirtiéndolo a minúsculas y eliminando espacios, para evitar.
-    if len(name) == 0:
-        # Si el parámetro 'name' está vacío, retorna una lista vacía.
-        return filtered_cards
-    
-    cards = list(getAllImages())
-    # Convierte el resultado de 'getAllImages()' en una lista de objetos Card.
-    for i in range(len(cards)):
-        # Itera sobre los índices de la lista de tarjetas para acceder a cada objeto Card.
-        card = cards[i]
-        # Obtiene el objeto Card en el índice actual.
-        if card.name and card.name.lower().find(name) >= 0:
-            # Comprueba si el atributo 'name' existe y si el parámetro 'name' es una subcadena, ignorando mayúsculas y minúsculas.
+    # Inicializa una lista vacía para almacenar las tarjetas que coincidan con el criterio de búsqueda.
+    for card in getAllImages():
+        # Itera sobre cada objeto Card devuelto por la función getAllImages.
+        if card.name and name.lower() in card.name.lower():
+            # Verifica si el atributo 'name' de la tarjeta existe y si el parámetro 'name' (en minúsculas) está contenido en el nombre de la tarjeta (también en minúsculas).
             filtered_cards.append(card)
-            # Añade la tarjeta a la lista 'filtered_cards' si satisface la condición de búsqueda.
-    
+            # Añade la tarjeta a la lista 'filtered_cards' si la condición de búsqueda se cumple.
     return filtered_cards
     # Devuelve la lista 'filtered_cards' con todas las tarjetas cuyo atributo 'name' contiene el parámetro 'name'.
 
