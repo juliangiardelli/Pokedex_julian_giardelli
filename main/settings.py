@@ -1,18 +1,21 @@
 import os
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+# Security settings
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2drt2_^@w@6)3npj24wi%xe^&88icb)dw&e0!^%eao3r6l4fkt'
+if not SECRET_KEY:
+    raise ImproperlyConfigured(
+        'Definí la variable de entorno DJANGO_SECRET_KEY antes de iniciar Django.'
+    )
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG está desactivado por defecto. Activarlo solo para desarrollo local.
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '::1']
 
