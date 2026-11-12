@@ -71,7 +71,7 @@ El proyecto está organizado en distintas capas, con responsabilidades diferenci
 
    **Windows (PowerShell)**
    ```powershell
-   $env:DJANGO_SECRET_KEY = python -c "import secrets; print(secrets.token_urlsafe(50))"
+   $env:DJANGO_SECRET_KEY = (python -c "import secrets; print(secrets.token_urlsafe(50))")
    $env:DJANGO_DEBUG = "True"
    ```
 
